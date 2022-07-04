@@ -2,6 +2,9 @@
 
 SQL Data Cleaning Project
 
+Project inspired by AlexTheAnalyst (Youtube)
+Data Source: https://github.com/AlexTheAnalyst/PortfolioProjects/blob/main/Nashville%20Housing%20Data%20for%20Data%20Cleaning.xlsx
+
 */
 
 ---------------------------------------------------------------------------------------------------------------------
