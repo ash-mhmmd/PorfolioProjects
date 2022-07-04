@@ -21,7 +21,6 @@ Set SaleDateConverted = CONVERT(Date,SaleDate);
 
 --Populate Property Address Data
 
-
 --Found that ParcelID correlates to Property Address. 	
 Select *
 From NashvilleHousing
@@ -47,7 +46,6 @@ JOIN CleaningProject.dbo.NashvilleHousing b
 ---------------------------------------------------------------------------------------------------------------------
 
 --Breaking Down Addresses into Individual Columns (Address, City, State)
-
 
 --Cleaning PropertyAddress: Splitting Address and City
 Select
