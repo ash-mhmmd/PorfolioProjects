@@ -82,7 +82,7 @@ WHERE continent IS NOT NULL
 ORDER BY 1,2;
 
 
--- ROLLING COUNT OF GLOBAL POPULATION THAT’S RECEIVED AT LEAST ONE COVID VACCINE
+-- ROLLING COUNT OF GLOBAL POPULATION THATâ€™S RECEIVED AT LEAST ONE COVID VACCINE
 SELECT dea.Continent, dea.Location, dea.Date, dea.Population, vac.New_Vaccinations, 
 SUM(cast(vac.new_vaccinations as bigint)) OVER (PARTITION BY dea.location ORDER BY dea.location, dea.date) as RollingVaccinations
 FROM CovidDeaths dea
@@ -93,7 +93,7 @@ WHERE dea.continent IS NOT NULL
 ORDER BY 2,3;
 
 
--- USING CTE TO DIVIDE 'ROLLINGVACCINATIONS' BY 'POPULATION' TO FIND ROLLING PERCENT OF GLOBAL POPULATION THAT’S RECEIVED AT LEAST ONE COVID VACCINE
+-- USING CTE TO DIVIDE 'ROLLINGVACCINATIONS' BY 'POPULATION' TO FIND ROLLING PERCENT OF GLOBAL POPULATION THATâ€™S RECEIVED AT LEAST ONE COVID VACCINE
 	-- PopvsVac = Population vs Vaccinations
 WITH PopvsVac (Continent, Location, Date, Population,New_Vaccinations, RollingVaccinations)
 AS
@@ -109,7 +109,7 @@ SELECT *, (RollingVaccinations/population)*100 as RollingVaccinationsPercent
 FROM PopvsVac;
 
 
--- USING TEMP TABLE TO DIVIDE 'ROLLINGVACCINATIONS' BY 'POPULATION' TO FIND ROLLING PERCENT OF GLOBAL POPULATION THAT’S RECEIVED AT LEAST ONE COVID VACCINE
+-- USING TEMP TABLE TO DIVIDE 'ROLLINGVACCINATIONS' BY 'POPULATION' TO FIND ROLLING PERCENT OF GLOBAL POPULATION THATâ€™S RECEIVED AT LEAST ONE COVID VACCINE
 	-- PopvsVac = Population vs Vaccinations
 DROP Table if exists #GlobalVaccinationsPercent
 CREATE TABLE #GlobalVaccinationsPercent
@@ -131,6 +131,7 @@ JOIN CovidVaccinations$ vac
 
 SELECT *, (RollingVaccinations/Population)*100  as RollingVaccinationsPercent
 FROM #GlobalVaccinationsPercent;
+
 
 -- CREATING VIEW TO STORE DATA FOR LATER VISUALS
 CREATE VIEW GlobalVaccinationsPercent as
