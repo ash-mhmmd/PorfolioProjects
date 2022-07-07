@@ -10,6 +10,7 @@ Skills Used:Joins, CTEs, Temp Tables, Windows Functions, Aggregate Functions, Cr
 */
 
 -- CHECKING DATA
+
 SELECT *
 FROM ExplorationProject.dbo.CovidDeaths;
 
@@ -17,41 +18,53 @@ SELECT *
 FROM ExplorationProject.dbo.CovidVaccinations$;
 
 
+
 -- DAILY LIKELIHOOD OF DYING FROM COVID BY COUNTRY
+
 SELECT location, date, total_cases, total_deaths, (total_deaths/total_cases)*100 as LikelihoodOfDeath
 FROM CovidDeaths
 WHERE continent is not null
 ORDER BY 1,2;
 
 
+
 -- DAILY LIKELIHOOD OF DYING FROM COVID BY CONTINENT
+
 SELECT continent, date, total_cases, total_deaths, (total_deaths/total_cases)*100 as LikelihoodOfDeath
 FROM CovidDeaths
 WHERE continent is not null
 ORDER BY 1,2;
 
 
+
 -- DAILY INFECTION RATE BY COUNTRY
+
 SELECT location, date, population, total_cases, (total_cases/population)*100 as InfectionRate
 FROM CovidDeaths
 ORDER BY 1,2;
 
 
+
 -- DAILY INFECTION RATE BY CONTINENT
+
 SELECT continent, date, population, total_cases, (total_cases/population)*100 as InfectionRate
 FROM CovidDeaths
 WHERE continent IS NOT NULL
 ORDER BY 1,2;
 
 
+
 -- HIGHEST INFECTION RATES BY COUNTRY
+
 SELECT Location, max(total_cases) as HighestInfectionCount, max((total_cases/population))*100 as CountryInfectionRate
 FROM CovidDeaths
 GROUP BY location
 ORDER BY CountryInfectionRate desc;
 
 
+
 -- HIGHEST INFECTION RATES BY CONTINENT
+
 SELECT Continent, max(total_cases) as HighestInfectionCount, max((total_cases/population))*100 as CountryInfectionRate
 FROM CovidDeaths
 WHERE Continent IS NOT NULL
@@ -59,7 +72,9 @@ GROUP BY Continent
 ORDER BY CountryInfectionRate desc;
 
 
+
 -- HIGHEST DEATH COUNTS BY COUNTRY
+
 SELECT Location, max(cast(total_deaths as int)) as CountryDeathCount
 FROM CovidDeaths
 WHERE continent is not null
@@ -67,7 +82,9 @@ GROUP BY location
 ORDER BY CountryDeathCount desc;
 
 
+
 -- HIGHEST DEATH COUNTS BY CONTINENT
+
 SELECT Continent, max(cast(total_deaths as int)) as ContinentDeathCount
 FROM CovidDeaths
 WHERE continent is not null
@@ -75,14 +92,18 @@ GROUP BY continent
 ORDER BY ContinentDeathCount desc;
 
 
--- GLOBAL NUMBERS
+
+-- GLOBAL DEATH RATE
+
 SELECT sum(new_cases) as GlobalCases, sum(cast(new_deaths as int)) as GlobalDeaths, sum(cast(new_deaths as int))/sum(new_cases)*100 as GlobalDeathRate
 FROM CovidDeaths
 WHERE continent IS NOT NULL
 ORDER BY 1,2;
 
 
+
 -- ROLLING COUNT OF GLOBAL POPULATION THAT’S RECEIVED AT LEAST ONE COVID VACCINE
+
 SELECT dea.Continent, dea.Location, dea.Date, dea.Population, vac.New_Vaccinations, 
 SUM(cast(vac.new_vaccinations as bigint)) OVER (PARTITION BY dea.location ORDER BY dea.location, dea.date) as RollingVaccinations
 FROM CovidDeaths dea
@@ -93,8 +114,11 @@ WHERE dea.continent IS NOT NULL
 ORDER BY 2,3;
 
 
--- USING CTE TO DIVIDE 'ROLLINGVACCINATIONS' BY 'POPULATION' TO FIND ROLLING PERCENT OF GLOBAL POPULATION THAT’S RECEIVED AT LEAST ONE COVID VACCINE
+
+-- ROLLING PERCENT OF GLOBAL POPULATION THAT'S RECEIVED AT LEAST ONE VACCINE
+	-- Using CTE to divide 'RollingVaccinations' by 'Population'
 	-- PopvsVac = Population vs Vaccinations
+	
 WITH PopvsVac (Continent, Location, Date, Population,New_Vaccinations, RollingVaccinations)
 AS
 (
@@ -109,8 +133,11 @@ SELECT *, (RollingVaccinations/population)*100 as RollingVaccinationsPercent
 FROM PopvsVac;
 
 
--- USING TEMP TABLE TO DIVIDE 'ROLLINGVACCINATIONS' BY 'POPULATION' TO FIND ROLLING PERCENT OF GLOBAL POPULATION THAT’S RECEIVED AT LEAST ONE COVID VACCINE
+
+-- ROLLING PERCENT OF GLOBAL POPULATION THAT'S RECEIVED AT LEAST ONE VACCINE
+	-- Using TEMP TABLE to divide 'RollingVaccinations' by 'Population'
 	-- PopvsVac = Population vs Vaccinations
+	
 DROP Table if exists #GlobalVaccinationsPercent
 CREATE TABLE #GlobalVaccinationsPercent
 (
@@ -133,7 +160,8 @@ SELECT *, (RollingVaccinations/Population)*100  as RollingVaccinationsPercent
 FROM #GlobalVaccinationsPercent;
 
 
--- CREATING VIEW TO STORE DATA FOR LATER VISUALS
+
+-- CREATING VIEWS TO STORE DATA FOR LATER VISUALS
 CREATE VIEW GlobalVaccinationsPercent as
 SELECT dea.Continent, dea.Location, dea.Date, dea.Population, vac.New_Vaccinations, 
 SUM(cast(vac.new_vaccinations as bigint)) OVER (PARTITION BY dea.location ORDER BY dea.location, dea.date) as RollingVaccinations
