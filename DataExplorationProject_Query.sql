@@ -73,7 +73,7 @@ ORDER BY CountryInfectionRate desc;
 
 
 
--- HIGHEST DEATH COUNTS BY COUNTRY
+-- DEATH COUNT BY COUNTRY
 
 SELECT Location, max(cast(total_deaths as int)) as CountryDeathCount
 FROM CovidDeaths
@@ -83,7 +83,7 @@ ORDER BY CountryDeathCount desc;
 
 
 
--- HIGHEST DEATH COUNTS BY CONTINENT
+-- DEATH COUNT BY CONTINENT
 
 SELECT Continent, max(cast(total_deaths as int)) as ContinentDeathCount
 FROM CovidDeaths
