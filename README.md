@@ -1,5 +1,5 @@
 # PorfolioProjects
-A compilation of data analysis and visualization projects where I practice skills in SQL and Tableau.
+A compilation of data analysis projects where I practice skills in SQL.
 
 ## [Nashville Housing Data Cleaning](https://github.com/ash-mhmmd/PorfolioProjects/blob/main/DataCleaning_NashvilleHousing)
 SQL project to practice queries and data cleaning.
