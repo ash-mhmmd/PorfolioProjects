@@ -25,6 +25,7 @@ Information to store in database:
       - followee_id
       - created_at
   # Hastags
+      - 
   
 */
 
