@@ -20,8 +20,12 @@ Information to store in database:
       - user_id
       - photo_id
       - created_at
-  # Hastags
   # Followers / Followings (one-way user relationship)
+      - follower_id
+      - followee_id
+      - created_at
+  # Hastags
+  
 */
 
 [1] CREATING DATABASE
@@ -65,3 +69,10 @@ CREATE TABLE likes (
   PRIMARY KEY(user_id, photo_id)
 );
 
+CREATE TABLE follows(
+  follower_id INTEGER NOT NULL,
+  followee_id INTEGER NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW(),
+  FOREIGN KEY(follower_id) REFERENCES users(id),
+  FOREIGN KEY (followee_id) REFERENCES users(id),
+);
