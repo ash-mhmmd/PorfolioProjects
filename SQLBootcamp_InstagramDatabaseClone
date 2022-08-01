@@ -1,1 +1,29 @@
+/* SQL BOOTCAMP: INSTAGRAM DATABASE CLONE PROJECT
 
+Information to store in database:
+  - Users
+      - user id (Primary Key)
+      - username
+      - created_at
+  - Photos/Images
+  - Likes (Distinct since you can only like once)
+  - Hastags
+  - Comments
+  - Followers / Followings (one-way user relationship)
+*/
+
+[1] CREATING DATABASE
+
+CREATE DATABASE ig_clone;
+USE DATABASE ig_clone;
+
+
+[2] CREATING TABLES
+
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(255) UNIQUE NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW()
+ )
+ 
+  
