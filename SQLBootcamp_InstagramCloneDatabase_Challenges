@@ -1,0 +1,22 @@
+/* 
+
+SQL BOOT CAMP: INSTAGRAM CLONE DATABASE PROJECT
+
+Challenges:
+  1. Find the 5 oldest users
+  2. Most popular registration date
+  3. Identify inactive users (users with no photos)
+  4. Identify the most popular photo (and the user who created it)
+  5. Calculate average number of photos per user
+  6. Find the 5 most popular hashtags
+  7. Find the bots - people who have liked every single photo
+  
+*/
+
+[1] 5 OLDEST USERS
+[2] MOST POPULAR REGISTRATION DATE
+[3] INACTIVE USERS (NO PHOTOS)
+[4] MOST POPULAR PHOTO (& ITS USER)
+[5] PHOTOS PER USER
+[6] TOP 5 HASHTAGS
+[7] FINDING BOTS
