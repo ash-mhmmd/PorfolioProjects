@@ -35,13 +35,13 @@ Information to store in database:
   
 */
 
-[1] CREATING DATABASE
+-- [1] CREATING DATABASE
 
 CREATE DATABASE ig_clone;
 USE DATABASE ig_clone;
 
 
-[2] CREATING TABLES
+-- [2] CREATING TABLES
 
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
