@@ -1,0 +1,106 @@
+/* SPRING CLEANING: THE ANNUAL CLOSET INVENTORY
+    
+    Tasks:
+    1. Create new Shirts database
+    2. Create new table names Shirts
+        -> Columns = Shirt_ID (Not NULL, Primary Key), Article, Color, Shirt_Size, Last_Worn
+    3. Insert data into Shirts table
+    4. Add a new shirt
+    5. Select all shirts but only print Article and Color
+    6. Select all medium shirts - print everything BUT shirt_id
+    7. Update all polo shirts to Size 'L'
+    8. Update the shirt last worn 15 days ago to '0'
+    9. Update all white shirts to Size 'XS' and color 'off white'
+    10. Delete all old shirts (last worn exactly 200 days ago)
+    11. Delete all tanktops
+    12. Delete all shirts
+    13. Drop the entire Shirts table
+    
+  */
+  
+--[1]
+CREATE DATABASE shirts_db;
+SHOW databases;
+USE shirts_db;
+SELECT database();
+
+
+--[2]
+CREATE TABLE shirts(
+  shirt_id INT NOT NULL AUTO_INCREMENT,
+  article VARCHAR(100),
+  color VARCHAR(100),
+  shirt_size VARCHAR(100),
+  last_worn INT,
+  PRIMARY KEY(shirt_id)
+  );
+  
+  
+--[3]
+INSERT INTO shirts(article, color, shirt_size, last_worn) VALUES
+  ('t-shirt', 'white', 'S', 10),
+  ('t-shirt', 'green', 'S', 200),
+  ('polo shirt', 'black', 'M', 10),
+  ('tank top', 'blue', 'S', 50),
+  ('t-shirt', 'pink', 'S', 0),
+  ('polo shirt', 'red', 'M', 5),
+  ('tank top', 'white', 'S', 200),
+  ('tank top', 'blue', 'M', 15);
+ 
+ SELECT * FROM shirts;
+ 
+ 
+--[4]
+INSERT INTO shirt (color, article, shirt_size, last_worn) VALUES
+  ('purple', 'polo shirt', 'M', 50);
+SELECT * FROM shirts;
+  
+  
+--[5]
+SELECT article, color
+FROM shirts;
+
+
+--[6]
+SELECT color, article, shirt_size, last_worn
+FROM shirts
+WHERE shirt_size = 'M';
+
+
+--[7]
+UPDATE shirts
+SET shirt_size = 'L'
+WHERE article = 'polo shirt';
+
+
+--[8]
+UPDATE shirts
+SET last_worn = 0
+Where last_worn = 15;
+
+
+--[9]
+UPDATE shirts
+SET color = 'off white', shirt_size = 'XS'
+WHERE color = 'white'; 
+
+
+--[10]
+DELETE 
+FROM shirts
+Where last_worn = 200;
+
+
+--[11]
+DELETE
+FROM shirts
+where article = 'tank top';
+
+
+--[12]
+DELETE 
+FROM shirts;
+
+
+--[13]
+DROP TABLE shirts;
