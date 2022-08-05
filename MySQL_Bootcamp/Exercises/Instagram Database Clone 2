@@ -1,4 +1,4 @@
-/* SQL BOOTCAMP: INSTAGRAM DATABASE CLONE - "Join Us" PAGE EXERCISES
+/* SQL BOOTCAMP: INSTAGRAM DATABASE CLONE - EXERCISES PART 2
 
     1. Find the earliest date a user joined (ex: August 2nd 2022)
     2. Find the email of the first(earliest) user (use subquery)
