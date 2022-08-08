@@ -1,1 +1,33 @@
+-- New Database--------------------------------------------------------------------------------------------------------------------------------------------------------
 
+CREATE DATABASE trigger_demo;
+
+user trigger_demo;
+
+
+-- Users Table---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE users (
+    username VARCHAR(100),
+    age INT
+);
+
+
+
+--TRIGGER--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+DELIMITER $$
+
+CREATE TRIGGER must_be_adult
+  BEFORE INSERT ON  people FOR EACH ROW
+    BEGIN
+        IF NEW.age < 18
+        THEN
+            SIGNAL SQLSTATE '45000'
+          SET MESSAGE_TEXT = 'Must be an adult!';
+        END IF;
+    END;
+$$
+
+DELIMITER ;
